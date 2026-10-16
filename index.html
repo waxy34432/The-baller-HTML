@@ -22,7 +22,12 @@
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    html { min-height: 100%; background: var(--bg); }
+    html {
+      height: 100%;
+      overflow: hidden;
+      overscroll-behavior: none;
+      background: var(--bg);
+    }
 
     /* Запрет выделения и копирования */
     html, body, * {
@@ -36,13 +41,14 @@
     img { -webkit-user-drag: none; user-drag: none; }
 
     body {
-      min-height: 100vh;
-      min-height: 100dvh;
+      height: 100vh;
+      height: 100dvh;
       padding: 28px 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow-x: hidden;
+      overflow: hidden;
+      overscroll-behavior: none;
       position: relative;
       isolation: isolate;
       color: #f8fafc;
@@ -365,6 +371,9 @@
   <script>
     ['copy', 'cut', 'selectstart', 'contextmenu', 'dragstart'].forEach(function (evt) {
       document.addEventListener(evt, function (e) { e.preventDefault(); });
+    });
+    ['wheel', 'touchmove'].forEach(function (evt) {
+      document.addEventListener(evt, function (e) { e.preventDefault(); }, { passive: false });
     });
     document.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && ['a', 'c', 'x', 's', 'u'].indexOf(e.key.toLowerCase()) !== -1) {
